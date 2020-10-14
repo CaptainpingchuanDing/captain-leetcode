@@ -2,7 +2,7 @@ package pers.captain.algorithm.may;
 
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
-import pers.captain.algorithm.LogUtils;
+import pers.captain.algorithm.CapL;
 
 /**
  * 给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
@@ -130,7 +130,7 @@ public class No32RemoveDuplicatesfromSortedArray_26 {
 
         int count = PRemoveDuplicatesTest(nums);
         System.out.println(count);
-        LogUtils.printArray(nums);
+        CapL.printArray(nums);
     }
 
 }

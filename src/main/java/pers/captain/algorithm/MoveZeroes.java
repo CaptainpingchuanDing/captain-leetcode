@@ -60,7 +60,7 @@ public class MoveZeroes {
     public void moveZeroes() {
         int[] nums = new int[]{0, 1, 0, 3, 12};
         moveZeroes(nums);
-        LogUtils.printArray(nums);
+        CapL.printArray(nums);
 
     }
 }

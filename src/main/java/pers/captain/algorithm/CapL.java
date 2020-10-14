@@ -1,6 +1,6 @@
 package pers.captain.algorithm;
 
-public class LogUtils {
+public class CapL {
 
     public static void printArray(int[] array) {
         if (array == null) {

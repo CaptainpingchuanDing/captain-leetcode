@@ -1,7 +1,7 @@
 package pers.captain.algorithm.may;
 
 import org.junit.Test;
-import pers.captain.algorithm.LogUtils;
+import pers.captain.algorithm.CapL;
 
 /**
  * 给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。
@@ -116,6 +116,6 @@ public class No33RemoveElements_27 {
 //        int[] nums = new int[]{3, 2, 2, 3};
         int result = removeElementTest(nums, 2);
         System.out.println(result);
-        LogUtils.printArray(nums);
+        CapL.printArray(nums);
     }
 }

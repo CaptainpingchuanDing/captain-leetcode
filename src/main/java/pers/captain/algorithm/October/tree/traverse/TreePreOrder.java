@@ -1,7 +1,7 @@
 package pers.captain.algorithm.October.tree.traverse;
 
 import org.junit.Test;
-import pers.captain.algorithm.LogUtils;
+import pers.captain.algorithm.CapL;
 import pers.captain.algorithm.structrue.TreeNode;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class TreePreOrder {
         treeNode2.left = treeNode4;
         treeNode2.right = treeNode5;
         List<Integer> result = preOrder1(head);
-        LogUtils.print(result.toString());
+        CapL.print(result.toString());
     }
 
     /*
@@ -78,6 +78,6 @@ public class TreePreOrder {
         treeNode2.left = treeNode4;
         treeNode2.right = treeNode5;
         List<Integer> result = preOrder2(head);
-        LogUtils.print(result.toString());
+        CapL.print(result.toString());
     }
 }

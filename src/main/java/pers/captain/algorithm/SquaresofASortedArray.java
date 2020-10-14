@@ -75,14 +75,14 @@ public class SquaresofASortedArray {
     public void sortedSquares(){
         int[] nums = new int[]{-4,-1,0,3,10};
         int[] result = sortedSquares(nums);
-        LogUtils.printArray(result);
+        CapL.printArray(result);
 
         Assert.assertEquals(result[4],100);
         Assert.assertEquals(result[0],0);
 
         int[] nums1 = new int[]{-7,-3,2,3,11};
         int[] result1 = sortedSquares(nums1);
-        LogUtils.printArray(result1);
+        CapL.printArray(result1);
 
         Assert.assertEquals(result1[0],4);
         Assert.assertEquals(result1[4],121);
