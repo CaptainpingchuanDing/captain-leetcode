@@ -57,8 +57,19 @@ public class TreeInOrder {
     public List<Integer> inOrder2(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         Stack<TreeNode> stack = new Stack<>();
-        if (root == null) return result;
-
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }//到达最左边节点
+            if (!stack.isEmpty()) {
+                TreeNode node = stack.pop();
+                result.add(node.val);
+                if (node.right != null) {
+                    root = node.right;
+                }
+            }
+        }
         return result;
     }
 }
