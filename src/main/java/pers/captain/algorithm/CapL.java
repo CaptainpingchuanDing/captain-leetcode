@@ -1,5 +1,7 @@
 package pers.captain.algorithm;
 
+import java.util.List;
+
 public class CapL {
 
     public static void printArray(int[] array) {
@@ -19,10 +21,15 @@ public class CapL {
         }
     }
 
-    public static void print(String str){
+    public static void print(String str) {
         System.out.print(str);
     }
-    public static void print(int num){
+
+    public static void print(List list) {
+        System.out.print(list.toString());
+    }
+
+    public static void print(int num) {
         System.out.print(num);
     }
 
