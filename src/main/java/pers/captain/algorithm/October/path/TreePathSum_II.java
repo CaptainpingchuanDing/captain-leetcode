@@ -36,7 +36,7 @@ import java.util.List;
  * 节点总数 <= 10000
  * 注意：本题与主站 113 题相同：https://leetcode-cn.com/problems/path-sum-ii/
  */
-public class TreePathSum {
+public class TreePathSum_II {
 
     /**
      * 方法一： DFS
