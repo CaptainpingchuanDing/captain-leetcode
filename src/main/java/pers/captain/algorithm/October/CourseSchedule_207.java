@@ -84,4 +84,40 @@ public class CourseSchedule_207 {
         boolean result = canFinish(2, prerequisites);
         Assert.assertFalse(result);
     }
+
+    public boolean canFinishE(int numCourses, int[][] prerequisites) {
+        int[] degree = new int[numCourses];
+        List<List<Integer>> adjacency = new ArrayList<>();
+        for (int cur = 0; cur < numCourses; cur++) {
+            adjacency.add(new ArrayList<Integer>());
+        }
+        //1. 初始化 邻接表
+        for (int[] cur : prerequisites) {
+            adjacency.get(cur[1]).add(cur[0]);
+            degree[cur[1]]++;
+        }
+        //2. 队列
+        Queue<Integer> queue = new LinkedList<>();
+        //3. 找出入度为零的节点
+        for(int cur = 0; cur < numCourses; cur++){
+            if(degree[cur]==0) queue.add(cur);
+        }
+        while (!queue.isEmpty()) {
+            int cur = queue.poll();
+            numCourses--;
+            for (int next : adjacency.get(cur)) {
+                if (--degree[next] == 0) queue.add(cur);
+            }
+        }
+        return numCourses == 0;
+    }
+
+    @Test
+    public void canFinishE() {
+        int[][] prerequisites = new int[2][2];
+        prerequisites[0] = new int[]{1, 0};
+        prerequisites[1] = new int[]{0, 1};
+        boolean result = canFinishE(2, prerequisites);
+        Assert.assertFalse(result);
+    }
 }
