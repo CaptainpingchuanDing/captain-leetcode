@@ -63,31 +63,26 @@ public class TreeNodeKthLargest {
     }
 
     /**
-     * 方法二： 中序遍历的 倒序
+     * 方法二： 中序遍历的 倒序 , 第k个就可以返回了
      *
      * @param root
      * @param k
      * @return
      */
+    int res, k;
+
     public int kthLargest2(TreeNode root, int k) {
-        int[] kth = new int[1];
-        inorder2(kth, root, 0, k);
-        return kth[0];
+        this.k = k;
+        dfs(root);
+        return res;
     }
-// todo
-    private void inorder2(int[] kth, TreeNode root, int cur, int k) {
+
+    void dfs(TreeNode root) {
         if (root == null) return;
-        if (root.right != null) {
-            inorder2(kth, root.right, cur, k);
-        }
-        cur++;
-        if (cur == k) {
-            kth[0] = root.val;
-            return;
-        }
-        if (root.left != null) {
-            inorder2(kth, root.left, cur, k);
-        }
+        if (k == 0) return;
+        dfs(root.right);
+        if (--k == 0) res = root.val;
+        dfs(root.left);
     }
 
 }
