@@ -8,36 +8,37 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 39. 组合总和
- * 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+ * 40. 组合总和 II
+ * 给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
  * <p>
- * candidates 中的数字可以无限制重复被选取。
+ * candidates 中的每个数字在每个组合中只能使用一次。
  * <p>
  * 说明：
  * <p>
- * 所有数字（包括 target）都是正整数。
+ * 所有数字（包括目标数）都是正整数。
  * 解集不能包含重复的组合。
- * 示例 1：
+ * 示例 1:
  * <p>
- * 输入：candidates = [2,3,6,7], target = 7,
- * 所求解集为：
+ * 输入: candidates = [10,1,2,7,6,1,5], target = 8,
+ * 所求解集为:
  * [
- * [7],
- * [2,2,3]
+ * [1, 7],
+ * [1, 2, 5],
+ * [2, 6],
+ * [1, 1, 6]
  * ]
- * 示例 2：
+ * 示例 2:
  * <p>
- * 输入：candidates = [2,3,5], target = 8,
- * 所求解集为：
+ * 输入: candidates = [2,5,2,1,2], target = 5,
+ * 所求解集为:
  * [
- * [2,2,2,2],
- * [2,3,3],
- * [3,5]
+ * [1,2,2],
+ * [5]
  * ]
  */
-public class CombinationSum {
+public class CombinationSum_II {
 
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(candidates);
         helper(result, new ArrayList<>(), candidates, target, 0);
@@ -45,7 +46,6 @@ public class CombinationSum {
     }
 
     /**
-     * for example  candidates = [2,3,6,7] target = 7
      */
     private void helper(List<List<Integer>> result, List<Integer> curList, int[] candidates, int target, int curIndex) {
         if (target < 0) {
@@ -56,17 +56,19 @@ public class CombinationSum {
         } else {
             for (int i = curIndex; i < candidates.length; i++) {
                 if (target < candidates[i]) break; // 进行剪枝，candidates[i] > target 在继续向后，或者深一层候选数都会大于target
+                if (i > curIndex && candidates[i - 1] == candidates[i]) continue;// 为了防止重复
                 curList.add(candidates[i]);
-                helper(result, curList, candidates, target - candidates[i], i);
+                helper(result, curList, candidates, target - candidates[i], i + 1);
                 curList.remove(curList.size() - 1);
             }
         }
     }
 
     @Test
-    public void combinationSum() {
-        int[] candidates = new int[]{2, 3, 5};
-        List<List<Integer>> result = combinationSum(candidates, 8);
+    public void combinationSum2() {
+        int[] candidate = new int[]{2, 5, 2, 1, 2};
+        List<List<Integer>> result = combinationSum2(candidate, 5);
         CapL.print(result);
     }
+
 }

@@ -1,6 +1,7 @@
 package pers.captain.algorithm.nov;
 
-import com.sun.org.apache.regexp.internal.RE;
+import org.junit.Test;
+import pers.captain.algorithm.CapL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +43,7 @@ public class Permutations {
      * @param nums
      * @param isUsed  标识哪些元素已经使用
      */
-    private void helper(List<List<Integer>> result, List<Integer> curList
-            , int[] nums, boolean[] isUsed) {
+    private void helper(List<List<Integer>> result, List<Integer> curList, int[] nums, boolean[] isUsed) {
         if (curList.size() == nums.length) {
             result.add(new ArrayList<>(curList));
         } else {
@@ -57,5 +57,35 @@ public class Permutations {
                 }
             }
         }
+    }
+
+
+    public List<List<Integer>> permute_E(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (nums == null || nums.length == 0) return result;
+        helper_E(result, nums, new ArrayList<>(), new boolean[nums.length]);
+        return result;
+    }
+
+    private void helper_E(List<List<Integer>> result, int[] nums, List<Integer> curList, boolean isUsed[]) {
+        if (curList.size() == nums.length) {// 已经排列完成
+            result.add(new ArrayList<>(curList));
+        } else {
+            for (int i = 0; i < nums.length; i++) {
+                if (isUsed[i]) continue;
+                curList.add(nums[i]);
+                isUsed[i] = true;
+                helper_E(result, nums, curList, isUsed);
+                isUsed[i] = false;
+                curList.remove(curList.size() - 1);
+            }
+        }
+    }
+
+    @Test
+    public void permute_E() {
+        int[] nums = new int[]{1, 2, 3};
+        List<List<Integer>> result = permute_E(nums);
+        CapL.print(result);
     }
 }
