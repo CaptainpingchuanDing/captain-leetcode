@@ -1,6 +1,8 @@
 package pers.captain.algorithm.nov;
 
+import org.junit.Test;
 import org.omg.PortableInterceptor.INACTIVE;
+import pers.captain.algorithm.CapL;
 
 import java.util.*;
 
@@ -79,4 +81,39 @@ public class Permutations_II {
             }
         }
     }
+
+
+    public List<List<Integer>> permuteUnique_E(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (nums == null || nums.length == 0) return result;
+        Arrays.sort(nums);
+        helper_E(result, new ArrayList<>(), nums, new boolean[nums.length]);
+        return result;
+    }
+
+    private void helper_E(List<List<Integer>> result, List<Integer> curList, int[] nums, boolean[] isUsed) {
+        if (curList.size() == nums.length) {
+            result.add(new ArrayList<>(curList));
+        } else {
+            for (int i = 0; i < nums.length; i++) {
+                if (isUsed[i]) continue;
+                // 这里的isUsed[i-1],注意是i-1 不是 i
+                if (i > 0 && nums[i - 1] == nums[i] && !isUsed[i - 1]) continue;
+
+                curList.add(nums[i]);
+                isUsed[i] = true;
+                helper_E(result, curList, nums, isUsed);
+                curList.remove(curList.size() - 1);
+                isUsed[i] = false;
+            }
+        }
+    }
+
+    @Test
+    public void permuteUnique_E() {
+        int[] nums = new int[]{1, 1, 2};
+        List<List<Integer>> result = permuteUnique_E(nums);
+        CapL.print(result);
+    }
+
 }
