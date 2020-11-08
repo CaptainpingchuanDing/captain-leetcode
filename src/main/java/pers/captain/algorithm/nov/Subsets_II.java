@@ -63,4 +63,32 @@ public class Subsets_II {
         List<List<Integer>> list = subsetsWithDup(nums);
         CapL.print(list);
     }
+
+    public List<List<Integer>> subsetsWithDup_E(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        helper_E(result, new ArrayList<>(), nums, 0, false);
+        return result;
+    }
+
+    private void helper_E(List<List<Integer>> result, List<Integer> curList, int[] nums, int curIndex, boolean isUsed) {
+        if (curIndex >= nums.length) {
+            result.add(new ArrayList<>(curList));
+        } else {
+            helper_E(result, curList, nums, curIndex + 1, false);
+
+            if (curIndex > 0 && nums[curIndex - 1] == nums[curIndex] && !isUsed) return;
+            curList.add(nums[curIndex]);
+            helper_E(result, curList, nums, curIndex + 1, true);
+            curList.remove(curList.size() - 1);
+
+        }
+    }
+
+    @Test
+    public void subsetsWithDup_E() {
+        int[] nums = new int[]{1, 2, 2};
+        List<List<Integer>> list = subsetsWithDup_E(nums);
+        CapL.print(list);
+    }
 }

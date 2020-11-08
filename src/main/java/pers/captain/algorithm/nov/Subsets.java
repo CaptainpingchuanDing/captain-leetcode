@@ -52,7 +52,7 @@ public class Subsets {
             //选择当前元素nums[curIndex];
             curList.add(nums[curIndex]);
             helper(list, curList, curIndex + 1, nums);
-            curList.remove(curList.size()-1);
+            curList.remove(curList.size() - 1);
 
         }
     }
@@ -62,6 +62,34 @@ public class Subsets {
         int[] nums = new int[]{1, 2, 3};
         List<List<Integer>> list = subsets(nums);
         CapL.print(list);
+    }
+
+    public List<List<Integer>> subsets_E(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        helper_E(result, new ArrayList<>(), nums, 0);
+        return result;
+    }
+
+    private void helper_E(List<List<Integer>> result, List<Integer> curList, int[] nums, int curIndex) {
+        if (curIndex >= nums.length) {
+            result.add(new ArrayList<>(curList));
+        } else {
+            // 不选择当前元素
+            helper_E(result, curList, nums, curIndex + 1);
+            // 选择当前元素
+            curList.add(nums[curIndex]);
+            helper_E(result, curList, nums, curIndex + 1);
+            curList.remove(curList.size() - 1);
+
+        }
+    }
+
+    @Test
+    public void subsets_E() {
+        int[] nums = new int[]{1, 2, 3};
+        List<List<Integer>> res = subsets_E(nums);
+        CapL.print(res);
+
     }
 
 }
