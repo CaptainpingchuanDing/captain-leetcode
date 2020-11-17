@@ -3,7 +3,9 @@ package pers.captain.algorithm.nov;
 import org.junit.Test;
 import pers.captain.algorithm.CapL;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 322. 零钱兑换
@@ -93,6 +95,42 @@ public class CoinChange {
         int[] coins = new int[]{186, 419, 83, 408};
         int count = coinChange(coins, 6249);
         CapL.print(count);
+    }
+
+
+    public int coinChange_S(int[] coins, int amount) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(coins);
+        helper(result, new ArrayList<>(), coins, amount, coins.length - 1);
+        int minCount = -1;
+        for (int i = 0; i < result.size(); i++) {
+            if (minCount == -1) {
+                minCount = result.get(i).size();
+            }
+            if (result.get(i).size() < minCount) {
+                minCount = result.get(i).size();
+            }
+        }
+        return minCount == 0 ? -1 : minCount;
+    }
+
+    /**
+     * for example  candidates = [2,3,6,7] target = 7
+     */
+    private void helper(List<List<Integer>> result, List<Integer> curList, int[] candidates, int target, int curIndex) {
+        if (target < 0) {
+            return;
+        }
+        if (target == 0) {
+            result.add(new ArrayList<>(curList));
+        } else {
+            for (int i = curIndex; i >= 0; i--) {
+                if (target < candidates[i]) continue;
+                curList.add(candidates[i]);
+                helper(result, curList, candidates, target - candidates[i], i);
+                curList.remove(curList.size() - 1);
+            }
+        }
     }
 
 }
