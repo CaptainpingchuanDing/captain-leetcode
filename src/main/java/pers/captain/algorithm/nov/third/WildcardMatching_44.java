@@ -70,6 +70,7 @@ public class WildcardMatching_44 {
      * <p>
      * 2. p[j-1] ='*' 表示为空的时候，dp[i][j] = dp[i][j-1]
      * 表示任意字符串时，dp[i][j] = dp[i-1][j]  可以吧 i以前的一些字符可以匹配上
+     * （p[j-1]匹配当前的s[i-1],同时匹配i-1 前面的字符串）
      *
      * @param s
      * @param p
@@ -115,5 +116,45 @@ public class WildcardMatching_44 {
         String p = "*a*b";
         boolean result = isMatch(s, p);
         Assert.assertTrue(result);
+    }
+
+    /**
+     * 1.dp[i][j]  represent the ith of string s, and the jth pattern p
+     * 2. init
+     * dp[0][0] = true;
+     * dp[i][0] = false;
+     * dp[0][j] = true when p is like '****' all '* ' consist of it.
+     * 3. transfer function
+     * s[i]==p[j], p[j]=='?' dp[i][j] = dp[i-1][j-1];
+     * p[j]=='*' represent nothing, dp[i][j-1]
+     * represent any string , dp[i-1][j]
+     * <p>
+     * dp [1][1]--[m][n]
+     *
+     * @param s
+     * @param p
+     * @return
+     */
+    public boolean isMatch_E(String s, String p) {
+        if (s == null || p == null) return false;
+        if (p.length() == 0 && s.length() != 0) return false;
+        boolean dp[][] = new boolean[s.length() + 1][p.length() + 1];
+        // 1.init
+        dp[0][0] = true;
+        for (int j = 1; j <= p.length() && dp[0][j - 1]; j++) {
+            dp[0][j] = p.charAt(j - 1) == '*' && dp[0][j - 1];
+        }
+        //2. transfer
+        //[1][1]--[m][n] for dp
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 1; j <= p.length(); j++) {
+                if (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '?') {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else if (p.charAt(j - 1) == '*') {
+                    dp[i][j] = dp[i - 1][j] | dp[i][j - 1];
+                }
+            }
+        }
+        return dp[s.length()][p.length()];
     }
 }
