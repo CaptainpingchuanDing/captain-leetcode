@@ -1,5 +1,7 @@
 package pers.captain.algorithm.nov.second;
 
+import org.junit.Test;
+
 /**
  * 把n个骰子扔在地上，所有骰子朝上一面的点数之和为s。输入n，打印出s的所有可能的值出现的概率。
  * <p>
@@ -41,13 +43,33 @@ public class DicesProbability {
         double pre[] = {1 / 6d, 1 / 6d, 1 / 6d, 1 / 6d, 1 / 6d, 1 / 6d};
         for (int i = 2; i <= n; i++) {
             double tmp[] = new double[5 * i + 1];
-            for (int j = 0; j < pre.length; j++)
-                for (int x = 0; x < 6; x++)
+            for (int j = 0; j < pre.length; j++){
+                for (int x = 0; x < 6; x++){
                     tmp[j + x] += pre[j] / 6;
+                }
+            }
             pre = tmp;
         }
         return pre;
     }
 
 
+    @Test
+    public double[] dicesProbability_E(int n) {
+        // 1个骰子-->2个骰子的, 2个骰子-->3个骰子
+        //1. 状态  dp[]
+        //2.初始化dp
+        //3.状态转移方程
+        double[] pre = new double[]{1 / 6d, 1 / 6d, 1 / 6d, 1 / 6d, 1 / 6d, 1 / 6d};
+        for (int i = 2; i <= n; i++) {
+            double[] temp = new double[i * 5 + 1];
+            for (int j = 0; j < pre.length; j++) {
+                for (int a = 0; a < 6; a++) {
+                    temp[j + a] += pre[j] * (1 / 6d);
+                }
+            }
+            pre = temp;
+        }
+        return pre;
+    }
 }
