@@ -3,6 +3,8 @@ package pers.captain.algorithm.tto.feb;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.*;
+
 /**
  * 我们把只包含质因子 2、3 和 5 的数称作丑数（Ugly Number）。求按从小到大的顺序的第 n 个丑数。
  * <p>
@@ -26,17 +28,24 @@ public class NthUglyNumber {
 
     /**
      * 方法一 、暴力方法
-     *  todo
+     * todo
+     *
      * @param n
      * @return
      */
     public int nthUglyNumber(int n) {
         if (n <= 6) return n;
         int num = 7;
-        for (int i = 7; i <= n; i++) {
-            if (isUgly(num)) {
-                num++;
-                continue;
+        int nth = 6;
+        while (nth < n) {
+            while (isUgly(num)) {
+                if (nth + 1 < n) {
+                    num++;
+                } else {
+                    nth++;
+                    break;
+                }
+                nth++;
             }
             while (!isUgly(num)) {
                 num++;
@@ -62,7 +71,88 @@ public class NthUglyNumber {
 
     @Test
     public void nthUglyNumber() {
-        int result = nthUglyNumber(10);
-        Assert.assertEquals(result, 12);
+        int result = nthUglyNumber(7);
+        Assert.assertEquals(result, 8);
     }
+
+    /**
+     * 方法二 、辅助记忆
+     * todo
+     *
+     * @param n
+     * @return
+     */
+    public int nthUglyNumber2(int n) {
+        if (n <= 6) return n;
+        int num = 7;
+        int nth = 6;
+        Set<Integer> set = new HashSet<>();
+        set.addAll(Arrays.asList(1, 2, 3, 4, 5, 6));
+        while (nth < n) {
+            while (isUgly2(num, set)) {
+                if (nth + 1 < n) {
+                    num++;
+                } else {
+                    nth++;
+                    break;
+                }
+                nth++;
+            }
+            while (!isUgly2(num, set)) {
+                num++;
+            }
+        }
+        return num;
+    }
+
+    private boolean isUgly2(int n, Set<Integer> set) {
+        if (set.contains(n)) {
+            return true;
+        }
+        while (n % 2 == 0) {
+            n = n / 2;
+            if (set.contains(n)) {
+                return true;
+            }
+        }
+        while (n % 3 == 0) {
+            n = n / 3;
+            if (set.contains(n)) {
+                return true;
+            }
+        }
+        while (n % 5 == 0) {
+            n = n / 5;
+            if (set.contains(n)) {
+                return true;
+            }
+        }
+        if (n == 1) {
+            set.add(n);
+            return true;
+        }
+        return false;
+
+    }
+
+    @Test
+    public void nthUglyNumber2() {
+        int result = nthUglyNumber2(7);
+        Assert.assertEquals(result, 8);
+    }
+
+    public int nthUglyNumber_better(int n) {
+        int a = 0, b = 0, c = 0;
+        int[] dp = new int[n];
+        dp[0] = 1;
+        for (int i = 1; i < n; i++) {
+            int n2 = dp[a] * 2, n3 = dp[b] * 3, n5 = dp[c] * 5;
+            dp[i] = Math.min(Math.min(n2, n3), n5);
+            if (dp[i] == n2) a++;
+            if (dp[i] == n3) b++;
+            if (dp[i] == n5) c++;
+        }
+        return dp[n - 1];
+    }
+
 }
