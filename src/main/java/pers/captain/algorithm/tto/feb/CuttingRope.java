@@ -1,5 +1,6 @@
 package pers.captain.algorithm.tto.feb;
 
+import org.junit.Assert;
 import org.junit.Test;
 import pers.captain.algorithm.CapL;
 
@@ -95,7 +96,6 @@ public class CuttingRope {
      */
     public int cutttingRope3(int n) {
         int[] dp = new int[n + 1];
-        dp[0] = 1;
         dp[1] = 1;
         dp[2] = 1;
         for (int i = 3; i <= n; i++) {
@@ -149,7 +149,7 @@ public class CuttingRope {
             return 1;
         }
         int[] res = new int[n + 1];
-       return cal2(n, res);
+        return cal2(n, res);
     }
 
     private int cal2(int n, int[] res) {
@@ -164,4 +164,33 @@ public class CuttingRope {
         res[n] = temp;
         return temp;
     }
+
+    /**
+     * 自底向上
+     *
+     * @param n
+     * @return
+     */
+    public int cutingRope_3_E(int n) {
+        if (n < 3) {
+            return 1;
+        }
+        int[] res = new int[n + 1];
+        res[2] = 1;
+        for (int i = 3; i <= n; i++) {
+            for (int j = 1; j < i; j++) {
+                int m = j * (i - j);
+                int k = j * res[i - j];
+                res[i] = Math.max(Math.max(m, k), res[i]);
+            }
+        }
+        return res[n];
+    }
+
+    @Test
+    public void cutingRope_3_E(){
+        int result = cutingRope_3_E(10);
+        Assert.assertEquals(result,36);
+    }
+
 }
