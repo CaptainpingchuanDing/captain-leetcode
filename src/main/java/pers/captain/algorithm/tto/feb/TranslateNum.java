@@ -58,7 +58,20 @@ public class TranslateNum {
         return res;
     }
 
-    @Test
+
+    public int translateNum_Better2(int num) {
+        String s = String.valueOf(num);
+        int a = 1, b = 1;
+        for(int i = 2; i <= s.length(); i++) {
+            String tmp = s.substring(i - 2, i);
+            int c = tmp.compareTo("10") >= 0 && tmp.compareTo("25") <= 0 ? a + b : a;
+            b = a;
+            a = c;
+        }
+        return a;
+    }
+
+        @Test
     public void translateNum() {
 //        int res = translateNum(12258);
 //        Assert.assertEquals(5,res);
@@ -69,6 +82,7 @@ public class TranslateNum {
 
     @Test
     public void translateNum_Better() {
-
+       int result =  translateNum_Better(18822);
+       Assert.assertEquals(result,4);
     }
 }
