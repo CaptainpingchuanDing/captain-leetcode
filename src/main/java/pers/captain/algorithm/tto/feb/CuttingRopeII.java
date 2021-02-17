@@ -60,4 +60,6 @@ public class CuttingRopeII {
         int res = cuttingRope(120);
         Assert.assertEquals(res, 953271190);
     }
+
+    // n/2 = n/a
 }

@@ -1,5 +1,8 @@
 package pers.captain.algorithm.last;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 /**
  * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
  * <p>
@@ -72,8 +75,8 @@ public class No11LongestPalindromicSubstring_5 {
                     P[start][end] = (s.charAt(start) == s.charAt(end)) && P[start + 1][end - 1];
                 }
 
-                if(P[start][end]){
-                    maxPal = s.substring(start,end+1);
+                if (P[start][end]) {
+                    maxPal = s.substring(start, end + 1);
                 }
 
             }
@@ -83,11 +86,12 @@ public class No11LongestPalindromicSubstring_5 {
     }
 
     /**
-     *  扩展中心法
+     * 扩展中心法
+     * <p>
+     * 我们知道回文串一定是对称的，所以我们可以每次循环选择一个中心，进行左右扩展，判断左右字符是否相等即可。
+     * <p>
+     * 由于存在奇数的字符串和偶数的字符串，所以我们需要从一个字符开始扩展，或者从两个字符之间开始扩展，所以总共有 n+n-1 个中心。
      *
-     *  我们知道回文串一定是对称的，所以我们可以每次循环选择一个中心，进行左右扩展，判断左右字符是否相等即可。
-     *
-     *  由于存在奇数的字符串和偶数的字符串，所以我们需要从一个字符开始扩展，或者从两个字符之间开始扩展，所以总共有 n+n-1 个中心。
      * @param s
      * @return
      */
@@ -116,13 +120,56 @@ public class No11LongestPalindromicSubstring_5 {
     }
 
 
-
     public static void main(String[] args) {
         System.out.println(longestPalindrome("cbbd"));
         System.out.println(longestPalindrome2("cbbd"));
         System.out.println(longestPalindrome3("cbbd"));
         System.out.println("babad".substring(0, 3));
         System.out.println("babad".substring(1));
-
     }
+
+    public String longestPalindrome_E(String s) {
+        if (s == null || s.length() == 0) return "";
+        int maxL = 1;
+        int maxStart = 0;
+        int maxEnd = 0;
+        for (int i = 1; i < s.length(); i++) {
+            if (maxL >= i + 1) continue;
+            for (int j = 0; j < i; j++) {
+                if (maxL >= (i - j + 1)) {
+                   break;
+                }
+                if (isPalindrome_E(s, j, i)) {
+                    if ((i - j + 1) > maxL) {
+                        maxL = i - j + 1;
+                        maxStart = j;
+                        maxEnd = i;
+                    }
+                    break;
+                }
+            }
+        }
+        return s.substring(maxStart, maxEnd + 1);
+    }
+
+
+    private boolean isPalindrome_E(String s, int start, int end) {
+        while (end > start) {
+            if (s.charAt(start) != s.charAt(end)) {
+                return false;
+            } else {
+                start++;
+                end--;
+            }
+        }
+        return true;
+    }
+
+    @Test
+    public void longestPalindrome_E() {
+        String s = longestPalindrome_E("babad");
+        Assert.assertEquals(s, "bab");
+    }
+
+
 }

@@ -188,9 +188,27 @@ public class CuttingRope {
     }
 
     @Test
-    public void cutingRope_3_E(){
+    public void cutingRope_3_E() {
         int result = cutingRope_3_E(10);
-        Assert.assertEquals(result,36);
+        Assert.assertEquals(result, 36);
+    }
+
+    public int cutingRope_4_E(int n) {
+        // 自底向上、dp[i] 便是 i长度的最大乘积
+        int[] dp = new int[n + 1];// dp[i] = max[j*(i-j),j*dp[i-j]]
+        dp[1] = 1;
+        dp[2] = 1;
+        for (int i = 3; i <= n; i++) {
+            for (int j = 1; j < i; j++) {
+                dp[i] = Math.max(Math.max(j * (i - j), j * dp[i - j]),dp[i]);
+            }
+        }
+        return dp[n];
+    }
+    @Test
+    public void cutingRope_4_E() {
+        int result = cutingRope_4_E(10);
+        Assert.assertEquals(result, 36);
     }
 
 }

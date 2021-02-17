@@ -157,4 +157,40 @@ public class WildcardMatching_44 {
         }
         return dp[s.length()][p.length()];
     }
+
+
+    // * 表示任意字符  ? 表示任意一个字符
+    // dp[i][j] 表示截止到s的第i个字符，截止到p的第j个字符能否匹配
+    // dp[i][j] =  dp[i][j-1]| dp[i-1][j] ,if p[j] = *
+    //          =  dp[i-1][j-1]               ,if p[j] =?
+
+    public boolean isMatch_E_2(String s, String p) {
+        boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
+        dp[0][0] = true;
+        for (int j = 1; j <= p.length(); j++) {
+            if (p.charAt(j - 1) == '*' && dp[0][j - 1]) {
+                dp[0][j] = true;
+            } else {
+                break;
+            }
+        }
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 1; j <= p.length(); j++) {
+                if (p.charAt(j - 1) == '*') {
+                    dp[i][j] = dp[i - 1][j] | dp[i][j - 1];
+                } else if (p.charAt(j - 1) == '?' | p.charAt(j - 1) == s.charAt(i - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                }
+            }
+        }
+        return dp[s.length()][p.length()];
+    }
+
+    @Test
+    public void isMatch_E_2() {
+        String s = "adceb";
+        String p = "*a*b";
+        boolean res = isMatch_E_2(s,p);
+        Assert.assertTrue(res);
+    }
 }
