@@ -25,6 +25,10 @@ public class CapL {
         System.out.print(str);
     }
 
+    public static void print(int[] array) {
+        printArray(array);
+    }
+
     public static void print(List list) {
         System.out.print(list.toString());
     }
@@ -32,6 +36,7 @@ public class CapL {
     public static void print(int num) {
         System.out.print(num);
     }
+
     public static void println(double num) {
         System.out.println(num);
     }
