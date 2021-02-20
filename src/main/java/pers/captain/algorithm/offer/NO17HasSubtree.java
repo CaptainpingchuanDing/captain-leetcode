@@ -1,4 +1,4 @@
-package test;
+package pers.captain.algorithm.offer;
 
 import pers.captain.algorithm.structrue.TreeNode;
 
