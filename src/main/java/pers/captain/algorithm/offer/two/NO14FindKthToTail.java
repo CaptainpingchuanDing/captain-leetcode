@@ -1,4 +1,4 @@
-package pers.captain.algorithm.offer;
+package pers.captain.algorithm.offer.two;
 
 import org.junit.Test;
 import pers.captain.algorithm.CapL;

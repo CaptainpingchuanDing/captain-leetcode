@@ -1,4 +1,4 @@
-package pers.captain.algorithm.offer;
+package pers.captain.algorithm.offer.one;
 
 /**
  * 题目描述

@@ -1,4 +1,4 @@
-package pers.captain.algorithm.offer;
+package pers.captain.algorithm.offer.three;
 
 import com.sun.org.apache.regexp.internal.RE;
 
