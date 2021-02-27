@@ -28,8 +28,14 @@ public class TreeNode {
         head.right = treeNode3;
         treeNode2.left = treeNode4;
         treeNode2.right = treeNode5;
-
     }
 
-
+    @Override
+    public String toString() {
+        return "TreeNode{" +
+                "val=" + val +
+                ", left=" + (left == null ? "" : left.toString()) +
+                ", right=" + (right == null ? "" : right.toString()) +
+                '}';
+    }
 }
