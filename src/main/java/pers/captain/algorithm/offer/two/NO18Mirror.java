@@ -1,0 +1,39 @@
+package pers.captain.algorithm.offer.two;
+
+import pers.captain.algorithm.structrue.TreeNode;
+
+/**
+ * 题目描述
+ * 操作给定的二叉树，将其变换为源二叉树的镜像。
+ * 比如：    源二叉树
+ * 8
+ * /  \
+ * 6   10
+ * / \  / \
+ * 5  7 9 11
+ * 镜像二叉树
+ * 8
+ * /  \
+ * 10   6
+ * / \  / \
+ * 11 9 7  5
+ * 示例1
+ * 输入
+ * <p>
+ * {8,6,10,5,7,9,11}
+ * 返回值
+ * <p>
+ * {8,10,6,11,9,7,5}
+ */
+public class NO18Mirror {
+
+    public TreeNode Mirror(TreeNode pRoot) {
+        // write code here
+        if (pRoot == null) return null;
+        TreeNode left = Mirror(pRoot.right);
+        TreeNode right = Mirror(pRoot.left);
+        pRoot.left = left;
+        pRoot.right = right;
+        return pRoot;
+    }
+}

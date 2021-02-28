@@ -9,6 +9,11 @@ import pers.captain.algorithm.CapL;
  */
 public class N02ReplaceSpace {
 
+    /**
+     * 方法一: 使用stringBuilder
+     * @param str
+     * @return
+     */
     public String replaceSpace(StringBuffer str) {
         if (str == null || str.length() == 0) return "";
         StringBuilder stringBuilder = new StringBuilder();
@@ -20,6 +25,16 @@ public class N02ReplaceSpace {
             }
         }
         return stringBuilder.toString();
+    }
+
+    /**
+     * 方法二 使用string 的方法
+     * @param str
+     * @return
+     */
+    public String replaceSpace2(String str) {
+        if (str == null || str.length() == 0) return "";
+        return str.replaceAll(" ", "%20");
     }
 
     @Test

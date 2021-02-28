@@ -50,21 +50,20 @@ public class NO14FindKthToTail {
     }
 
     public ListNode FindKthToTail2(ListNode head, int k) {
-        // todo
-        if (k <= 0) return null;
-        ListNode p1 = head;
+        if (k <= 0 || head == null) return null;
+        ListNode fast = head;
         int i = 1;
-        while (i < k) {// p1 先走k步
-            if (p1.next == null) return null;//  k大于链表的长度
-            p1 = p1.next;
+        while (i < k) {// fast 先走k步
+            if (fast.next == null) return null;//  k大于链表的长度
+            fast = fast.next;
             i++;
         }
-        ListNode p2 = head;
-        while (p1.next != null) {// p1、p2 同时走
-            p1 = p1.next;
-            p2 = p2.next;
+        ListNode slow = head;
+        while (fast.next != null) {// fast、slow 同时走
+            fast = fast.next;
+            slow = slow.next;
         }
-        return p2;
+        return slow;
     }
 
     @Test
