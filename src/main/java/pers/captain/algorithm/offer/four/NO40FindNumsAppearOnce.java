@@ -8,11 +8,10 @@ public class NO40FindNumsAppearOnce {
 
     /**
      * @param array
-     * @param num1
-     * @param num2
      */
-    public void FindNumsAppearOnce(int[] array, int num1[], int num2[]) {
-        if (array == null || array.length < 2) return;
+    public int[] FindNumsAppearOnce(int[] array) {
+        if (array == null || array.length < 2) return null;
+        int[] resArr = new int[2];
         // 1. 先把数组中所有数相互异或
         int num = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -24,10 +23,11 @@ public class NO40FindNumsAppearOnce {
         }
         for (int i = 0; i < array.length; i++) {
             if ((array[i] & mask) == 0) {  // 3. 通过与mask 与操作分成两组
-                num1[0] = num1[0] ^ array[i]; // 4. 每组进行异或，结果就是出现一次的数
+                resArr[0] = resArr[0] ^ array[i]; // 4. 每组进行异或，结果就是出现一次的数
             } else {
-                num2[0] = num2[0] ^ array[i]; // 4. 每组进行异或，结果就是出现一次的数
+                resArr[1] = resArr[1] ^ array[i]; // 4. 每组进行异或，结果就是出现一次的数
             }
         }
+        return resArr;
     }
 }

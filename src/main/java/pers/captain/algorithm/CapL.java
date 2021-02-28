@@ -34,7 +34,7 @@ public class CapL {
     }
 
     public static void print(int num) {
-        System.out.print(num);
+        System.out.println(num);
     }
 
     public static void println(double num) {
