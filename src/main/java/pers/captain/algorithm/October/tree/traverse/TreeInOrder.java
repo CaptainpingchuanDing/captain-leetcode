@@ -72,4 +72,26 @@ public class TreeInOrder {
         }
         return result;
     }
+    @Test
+    public void inOrder2() {
+        /**
+         *   1
+         *  2  3
+         * 4 5
+         *
+         * 4 2 5 1 3
+         */
+        TreeNode head = new TreeNode(1);
+        TreeNode treeNode2 = new TreeNode(2);
+        TreeNode treeNode3 = new TreeNode(3);
+        TreeNode treeNode4 = new TreeNode(4);
+        TreeNode treeNode5 = new TreeNode(5);
+        head.left = treeNode2;
+        head.right = treeNode3;
+        treeNode2.left = treeNode4;
+        treeNode2.right = treeNode5;
+        List<Integer> result = inOrder2(head);
+        CapL.print(result.toString());
+
+    }
 }
