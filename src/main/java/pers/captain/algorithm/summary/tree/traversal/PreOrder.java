@@ -1,20 +1,33 @@
-package pers.captain.algorithm.October.tree.traverse;
+package pers.captain.algorithm.summary.tree.traversal;
 
 import org.junit.Test;
 import pers.captain.algorithm.CapL;
 import pers.captain.algorithm.structrue.TreeNode;
-import pers.captain.algorithm.summary.tree.T;
 
 import java.util.*;
 
-/**
- * 二叉树的前序遍历
- */
-public class TreePreOrder {
+public class PreOrder {
+
+    /*方法二： 迭代的方式
+    */
+    public List<Integer> preOrder2(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        Deque<TreeNode> stack = new LinkedList<>();
+//        Stack<TreeNode> stack = new Stack<>();//也是stack
+        if (root == null) return result;
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            result.add(node.val);
+            if (node.right != null) stack.push(node.right);
+            if (node.left != null) stack.push(node.left);
+        }
+        return result;
+    }
 
     /*
-    方法一： 递归方式
-     */
+     方法一： 递归方式
+    */
     public List<Integer> preOrder1(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         preOrder(root, result);
@@ -27,7 +40,6 @@ public class TreePreOrder {
         preOrder(root.left, result);
         preOrder(root.right, result);
     }
-
 
     @Test
     public void preOrder1() {
@@ -44,26 +56,6 @@ public class TreePreOrder {
         CapL.print(result.toString());
     }
 
-    /*
-    方法二： 迭代的方式
-     */
-    public List<Integer> preOrder2(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        Deque<TreeNode> stack = new LinkedList<>();
-        if (root == null) return result;
-        stack.push(root);
-        while (!stack.isEmpty()) {
-            TreeNode node = stack.pop();
-            result.add(node.val);
-            if (node.right != null) {
-                stack.push(node.right);
-            }
-            if (node.left != null) {
-                stack.push(node.left);
-            }
-        }
-        return result;
-    }
 
     @Test
     public void preOrder2() {

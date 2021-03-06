@@ -1,4 +1,4 @@
-package pers.captain.algorithm.October.path;
+package pers.captain.algorithm.summary.tree.path;
 
 import org.junit.Test;
 import pers.captain.algorithm.CapL;
@@ -39,7 +39,7 @@ import java.util.List;
 public class TreePathSum_II {
 
     /**
-     * 方法一： DFS
+     * 回溯的方法 通过DFS 实现
      *
      * @param root
      * @param sum
@@ -47,33 +47,20 @@ public class TreePathSum_II {
      */
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
         List<List<Integer>> pathList = new ArrayList<>();
-        pathSum(pathList, new ArrayList<Integer>(), root, sum);
+        helper(pathList, new ArrayList<Integer>(), root, sum);
         return pathList;
     }
 
-    /**
-     *
-     * @param pathList
-     * @param curPathList
-     * @param root
-     * @param sum
-     * @return  true 表示当前root的数值加入了 pathList中，false表示没有root的val没有加入pathList中。
-     */
-    private boolean pathSum(List<List<Integer>> pathList, List<Integer> curPathList, TreeNode root, int sum) {
-        if (root == null) return false;
-        if (root.val == sum && root.left == null && root.right == null) {
-            curPathList.add(root.val);
+    private void helper(List<List<Integer>> pathList, List<Integer> curPathList, TreeNode root, int target) {
+        if (root == null) return;
+        curPathList.add(root.val);
+        if (target == root.val && root.left == null && root.right == null) {// 判断当前节点是叶子节点且与target相同
             pathList.add(new ArrayList<>(curPathList));
-            return true;
         } else {
-            curPathList.add(root.val);
-            boolean leftH = pathSum(pathList, curPathList, root.left, sum - root.val);
-            if (leftH) curPathList.remove(curPathList.size() - 1);
-
-            boolean rightH = pathSum(pathList, curPathList, root.right, sum - root.val);
-            if (rightH) curPathList.remove(curPathList.size() - 1);
-            return true;
+            helper(pathList, curPathList, root.left, target - root.val);
+            helper(pathList, curPathList, root.right, target - root.val);
         }
+        curPathList.remove(curPathList.size() - 1);// 回溯
     }
 
     @Test

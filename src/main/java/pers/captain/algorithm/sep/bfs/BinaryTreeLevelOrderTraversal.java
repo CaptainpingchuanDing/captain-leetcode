@@ -62,7 +62,7 @@ public class BinaryTreeLevelOrderTraversal {
         if (root == null) return result;
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
-        while (queue.size() > 0) {
+        while (!queue.isEmpty()) {
             int size = queue.size();
             List<Integer> oneLayerList = new ArrayList<>();
             while (size > 0) {
@@ -76,7 +76,6 @@ public class BinaryTreeLevelOrderTraversal {
             }
             result.add(oneLayerList);
         }
-
         return result;
     }
 

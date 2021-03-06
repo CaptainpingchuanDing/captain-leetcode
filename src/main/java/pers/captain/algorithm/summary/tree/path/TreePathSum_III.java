@@ -1,8 +1,10 @@
-package pers.captain.algorithm.October.path;
+package pers.captain.algorithm.summary.tree.path;
 
 import pers.captain.algorithm.structrue.TreeNode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,8 +36,10 @@ import java.util.Map;
  * 3.  -3 -> 11
  */
 public class TreePathSum_III {
+
     /**
      * 递归的方式，当前节点开始，然后以左、右子节点为开始
+     * 双递归，第一个递归找到开始的节点，第二个递归是计算以第一个递归开始所有路径和为target的路径树。
      */
     public int pathSum(TreeNode root, int sum) {
         if (root == null) return 0;
@@ -96,11 +100,11 @@ public class TreePathSum_III {
         return ret;
     }
 
-    public int pathSum1(TreeNode root, int sum) {
-        return pathSum1(root, sum, new int[1000], 0);
+    public int pathSum3(TreeNode root, int sum) {
+        return pathSum3(root, sum, new int[1000], 0);
     }
 
-    public int pathSum1(TreeNode root, int sum, int[] array/*保存路径*/, int p/*指向路径终点*/) {
+    public int pathSum3(TreeNode root, int sum, int[] array/*保存路径*/, int p/*指向路径终点*/) {
         if (root == null) {
             return 0;
         }
@@ -113,8 +117,8 @@ public class TreePathSum_III {
             }
         }
         array[p] = root.val;
-        int n1 = pathSum1(root.left, sum, array, p + 1);
-        int n2 = pathSum1(root.right, sum, array, p + 1);
+        int n1 = pathSum3(root.left, sum, array, p + 1);
+        int n2 = pathSum3(root.right, sum, array, p + 1);
         return n + n1 + n2;
     }
 

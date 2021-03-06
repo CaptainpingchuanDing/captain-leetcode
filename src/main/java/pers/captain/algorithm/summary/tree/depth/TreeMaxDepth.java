@@ -1,4 +1,4 @@
-package pers.captain.algorithm.October;
+package pers.captain.algorithm.summary.tree.depth;
 
 import pers.captain.algorithm.structrue.TreeNode;
 
@@ -26,7 +26,7 @@ import java.util.Queue;
  * <p>
  * 节点总数 <= 10000
  */
-public class TreeDepth {
+public class TreeMaxDepth {
 
     /**
      * DFS
@@ -43,16 +43,13 @@ public class TreeDepth {
 
     /**
      * BFS
-     *
-     * @param root
-     * @return
+     * 类似树的按层打印
      */
-    public int maxDepth1(TreeNode root) {
+    public int maxDepth2(TreeNode root) {
         if (root == null) return 0;
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         int depth = 0;
-
         while (!queue.isEmpty()) {
             int size = queue.size();
             while (size > 0) {
@@ -63,7 +60,6 @@ public class TreeDepth {
             }
             depth++;
         }
-
         return depth;
     }
 

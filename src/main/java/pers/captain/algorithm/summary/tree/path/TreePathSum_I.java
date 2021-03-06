@@ -1,4 +1,4 @@
-package pers.captain.algorithm.October.path;
+package pers.captain.algorithm.summary.tree.path;
 
 import pers.captain.algorithm.structrue.TreeNode;
 
@@ -24,6 +24,12 @@ import pers.captain.algorithm.structrue.TreeNode;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class TreePathSum_I {
+    /**
+     * 递归思想
+     * @param root
+     * @param sum
+     * @return
+     */
     public boolean hasPathSum(TreeNode root, int sum) {
         if (root == null) return false;
         if (root.val == sum && root.left == null && root.right == null) {
