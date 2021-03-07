@@ -1,7 +1,5 @@
-package pers.captain.algorithm.sep.bfs;
+package pers.captain.algorithm.summary.tree.level;
 
-import com.alibaba.fastjson.JSON;
-import org.junit.Test;
 import pers.captain.algorithm.structrue.TreeNode;
 
 import java.util.*;
@@ -32,15 +30,19 @@ import java.util.*;
  * 链接：https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
-public class BinBiaryTreeZigzagLevelOrderTraversal {
 
+public class ZigzagLevelOrder {
+
+    /**
+     *  广度优先（BFS）
+     */
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
         if (root == null) return result;
-        Queue<TreeNode> queue = new LinkedList<>();
-        Deque<Integer> stack = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();//正向顺序记录
+        Deque<Integer> stack = new LinkedList<>();// 反向顺序记录（想比较按照层打印多了该stack）
         queue.add(root);
-        int layer = 1;
+        int layer = 1;// 丛1层开始
         while (!queue.isEmpty()) {
             int size = queue.size();
             List<Integer> oneLayerList = new ArrayList<>();
@@ -48,9 +50,9 @@ public class BinBiaryTreeZigzagLevelOrderTraversal {
                 size--;
                 TreeNode temp = queue.poll();
                 if (temp != null) {
-                    if (layer % 2 == 0) {
+                    if (layer % 2 == 0) {// 偶数层用反向
                         stack.push(temp.val);
-                    } else {
+                    } else {// 奇数层正向
                         oneLayerList.add(temp.val);
                     }
                     if (temp.left != null) queue.add(temp.left);
@@ -67,22 +69,4 @@ public class BinBiaryTreeZigzagLevelOrderTraversal {
         }
         return result;
     }
-
-    @Test
-    public void zigzagLevelOrder() {
-        TreeNode head = new TreeNode(1);
-        TreeNode treeNode2 = new TreeNode(2);
-        TreeNode treeNode3 = new TreeNode(3);
-        TreeNode treeNode4 = new TreeNode(4);
-        TreeNode treeNode5 = new TreeNode(5);
-        head.left = treeNode2;
-        head.right = treeNode3;
-        treeNode2.left = treeNode4;
-        treeNode2.right = treeNode5;
-
-        List<List<Integer>> result = zigzagLevelOrder(head);
-        System.out.println(JSON.toJSONString(result));
-
-    }
-
 }

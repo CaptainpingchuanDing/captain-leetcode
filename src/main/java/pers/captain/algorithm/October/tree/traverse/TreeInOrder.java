@@ -25,11 +25,11 @@ public class TreeInOrder {
         return result;
     }
 
-    private void inOrder(TreeNode root, List<Integer> treval) {
+    private void inOrder(TreeNode root, List<Integer> list) {
         if (root == null) return;
-        inOrder(root.left, treval);
-        treval.add(root.val);
-        inOrder(root.right, treval);
+        inOrder(root.left, list);
+        list.add(root.val);
+        inOrder(root.right, list);
     }
 
     @Test

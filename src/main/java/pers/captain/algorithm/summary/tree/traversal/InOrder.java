@@ -1,0 +1,69 @@
+package pers.captain.algorithm.summary.tree.traversal;
+
+import org.junit.Test;
+import pers.captain.algorithm.CapL;
+import pers.captain.algorithm.structrue.TreeNode;
+
+import java.util.*;
+
+public class InOrder {
+    /**
+     * 方法二：迭代
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> inOrder2(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        Deque<TreeNode> stack = new LinkedList<>();
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }//到达最左边节点
+            TreeNode node = stack.pop();
+            result.add(node.val);
+            if (node.right != null) {
+                root = node.right;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 方法一：递归
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> inOrder(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        inOrder(root, result);
+        return result;
+    }
+
+    private void inOrder(TreeNode root, List<Integer> list) {
+        if (root == null) return;
+        inOrder(root.left, list);
+        list.add(root.val);
+        inOrder(root.right, list);
+    }
+
+
+
+    @Test
+    public void inOrder() {
+        TreeNode head = new TreeNode(1);
+        TreeNode treeNode2 = new TreeNode(2);
+        TreeNode treeNode3 = new TreeNode(3);
+        TreeNode treeNode4 = new TreeNode(4);
+        TreeNode treeNode5 = new TreeNode(5);
+        head.left = treeNode2;
+        head.right = treeNode3;
+        treeNode2.left = treeNode4;
+        treeNode2.right = treeNode5;
+        List<Integer> result = inOrder(head);
+        CapL.print(result.toString());
+
+    }
+}
