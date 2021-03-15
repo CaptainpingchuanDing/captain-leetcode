@@ -8,6 +8,31 @@ import org.junit.Test;
  */
 public class No19TrappingRainWater_42 {
 
+
+    /**
+     * time O(n) space O(1)
+     *
+     * @param height
+     * @return
+     */
+    public int trap4(int[] height) {
+        if (height == null || height.length < 3) return 0;
+        int leftMax = 0, rightMax = 0, sum = 0;
+        int left = 0, right = height.length - 1;
+        while (left <= right) {
+            if (leftMax > rightMax) {
+                rightMax = Math.max(height[right], rightMax);
+                sum += rightMax - height[right];
+                right--;
+            } else {
+                leftMax = Math.max(height[left], leftMax);
+                sum += leftMax - height[left];
+                left++;
+            }
+        }
+        return sum;
+    }
+
     /**
      * 1.找出不可以盛水的。单调上涨（左边没有下跌）、单调下跌（右边没有上涨）
      * 2.找出可以盛水的。选出两边中一个最低的高度，一块一块的计算。
@@ -77,31 +102,6 @@ public class No19TrappingRainWater_42 {
     }
 
     /**
-     * 暴力方式求解
-     *
-     * @param height
-     * @return
-     */
-    public int trap2(int[] height) {
-        int left = 0;
-        int right = height.length - 1;
-        int maxHeight = 0;
-        while (right > left) {
-            int temp = Math.min(height[left], height[right]) * (right - left);
-            if (temp > maxHeight) {
-                maxHeight = temp;
-            }
-            if (height[right] > height[left]) {
-                left++;
-            } else {
-                right--;
-            }
-        }
-
-        return maxHeight;
-    }
-
-    /**
      * 最容易理解的做法
      * 1. 找出每个位置的左边最高墙、右边最高墙
      * 2. 第i 位置的水：min（leftMost、rightMost）- height[i]
@@ -162,10 +162,8 @@ public class No19TrappingRainWater_42 {
         int[] height = new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
         int result = no19TrappingRainWater_42.calculate(height, 3, 7);
         int result1 = no19TrappingRainWater_42.trap1(height);
-        int result2 = no19TrappingRainWater_42.trap2(height);
         System.out.println(result);
         System.out.println(result1);
-        System.out.println(result2);
     }
 
     public int trapTest(int[] height) {
