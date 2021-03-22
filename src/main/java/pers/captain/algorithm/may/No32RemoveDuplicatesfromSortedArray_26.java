@@ -56,10 +56,8 @@ public class No32RemoveDuplicatesfromSortedArray_26 {
      * @return
      */
     public static int removeDuplicatesFast(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return 0;
-        }
-        int slow = 1;
+        if (nums == null || nums.length == 0) return 0;
+        int slow = 1;// slow 左边的都是不重复的元素
         for (int fast = 1; fast < nums.length; fast++) {
             if (nums[fast - 1] != nums[fast]) {
                 nums[slow++] = nums[fast];
@@ -96,7 +94,7 @@ public class No32RemoveDuplicatesfromSortedArray_26 {
     public int PRemoveDuplicates(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
 
-        int slow = 1;
+        int slow = 1;// slow 左边的都是不重复的元素
         for (int fast = 1; fast < nums.length; fast++) {
             if (nums[fast - 1] != nums[fast]) {
                 nums[slow++] = nums[fast];

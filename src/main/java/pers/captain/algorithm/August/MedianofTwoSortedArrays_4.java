@@ -86,10 +86,53 @@ public class MedianofTwoSortedArrays_4 {
     }
 
     @Test
-    public void findMedianSortedArrays(){
-        int[] nums1 = new int[]{1,2};
-        int[] nums2 = new int[]{3,4};
-        double result = findMedianSortedArrays(nums1,nums2);
+    public void findMedianSortedArrays() {
+        int[] nums1 = new int[]{1, 2};
+        int[] nums2 = new int[]{3, 4};
+        double result = findMedianSortedArrays(nums1, nums2);
         System.out.println(result);
+    }
+
+    /**
+     * 方法二： time: O(m+n)  space: O(m+n)
+     * @param num1
+     * @param num2
+     * @return
+     */
+    public double findMedianSortedArrays2(int[] num1, int[] num2) {
+        if (num1.length == 0) return findMedianSortedArrays(num2);
+        if (num2.length == 0) return findMedianSortedArrays(num1);
+        int[] array = new int[num2.length + num1.length];
+        int count = 0, n1 = 0, n2 = 0;
+        while (count < array.length) {
+            if (n2 >= num2.length) {
+                array[count++] = num1[n1++];
+            } else if (n1 >= num1.length) {
+                array[count++] = num2[n2++];
+            } else {
+                if (num1[n1] > num2[n2]) {
+                    array[count++] = num2[n2++];
+                } else {
+                    array[count++] = num1[n1++];
+                }
+            }
+        }
+        return findMedianSortedArrays(array);
+    }
+
+    private double findMedianSortedArrays(int[] array) {
+        if (array.length % 2 == 0) {
+            // 0 1 2 3  length =4  n1 = length/2 = 2, n2= 1
+            return (array[array.length / 2] + array[array.length / 2 - 1]) / 2.0;
+        } else {
+            return array[array.length / 2];
+        }
+    }
+
+    @Test
+    public void findMedianSortedArrays2() {
+        int[] num1 = new int[]{1, 2};
+        int[] num2 = new int[]{3, 4};
+        findMedianSortedArrays2(num1,num2);
     }
 }
